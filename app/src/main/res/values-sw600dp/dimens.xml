@@ -1,0 +1,5 @@
+<resources>
+
+    <dimen name="notification_width">440dp</dimen><!-- 478dpから左の透明部分を引いた長さ -->
+
+</resources>

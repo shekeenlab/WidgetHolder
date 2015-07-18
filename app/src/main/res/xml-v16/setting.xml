@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <PreferenceCategory
+        android:title="@string/category_basic">
+	
+	    <CheckBoxPreference
+	        android:key="@string/key_show_title"
+	        android:layout_width="match_parent"
+	        android:title="@string/check_show_title"
+	        android:summary="@string/summary_show_title"
+	        android:defaultValue="true">
+	    </CheckBoxPreference>
+	    
+	    <CheckBoxPreference
+	        android:key="@string/key_use_low_prio"
+	        android:layout_width="match_parent"
+	        android:title="@string/check_use_low_prio"
+	        android:summary="@string/summary_priority"
+	        android:defaultValue="false">
+	    </CheckBoxPreference>
+	    
+	    <ListPreference
+			android:key="@string/key_status_icon1"
+			android:title="@string/list_status_icon1"
+			android:entries="@array/status_icon_types"
+			android:entryValues="@array/status_icon_type_vals"
+			android:dialogTitle="@string/list_status_icon1">
+	    </ListPreference>
+	    
+	    <ListPreference
+			android:key="@string/key_status_icon2"
+			android:title="@string/list_status_icon2"
+			android:entries="@array/status_icon_types"
+			android:entryValues="@array/status_icon_type_vals"
+			android:dialogTitle="@string/list_status_icon2">
+	    </ListPreference>
+	    
+	    <ListPreference
+			android:key="@string/key_status_icon3"
+			android:title="@string/list_status_icon3"
+			android:entries="@array/status_icon_types"
+			android:entryValues="@array/status_icon_type_vals"
+			android:dialogTitle="@string/list_status_icon3">
+	    </ListPreference>
+	    
+	    <ListPreference
+			android:key="@string/key_assist_action"
+			android:title="@string/list_assist_action"
+			android:entries="@array/assist_action_types"
+			android:entryValues="@array/assist_action_type_vals"
+			android:dialogTitle="@string/list_assist_action">
+	    </ListPreference>
+	    
+    </PreferenceCategory>
+    
+    <PreferenceCategory
+        android:title="@string/category_advanced">
+	    
+        <jp.co.shekeen.WidgetHolder.ColumnCountPreference
+			android:key="@string/key_column_count"
+	        android:layout_width="match_parent"
+	        android:title="@string/pick_column_count"
+	        android:summary="@string/summary_column_count"
+	        android:defaultValue="4">
+            
+        </jp.co.shekeen.WidgetHolder.ColumnCountPreference>
+	    
+        <CheckBoxPreference
+	        android:key="@string/key_smaller_height"
+	        android:layout_width="match_parent"
+	        android:title="@string/check_smaller_height"
+	        android:summary="@string/summary_smaller_height"
+	        android:defaultValue="true">
+	    </CheckBoxPreference>
+	    
+        <CheckBoxPreference
+	        android:key="@string/key_ics_compat"
+	        android:layout_width="match_parent"
+	        android:title="@string/check_ics_compat"
+	        android:summary="@string/summary_ics_compat"
+	        android:defaultValue="false">
+	    </CheckBoxPreference>
+        
+        <CheckBoxPreference
+	        android:key="@string/key_widget_compat"
+	        android:layout_width="match_parent"
+	        android:title="@string/check_widget_compat"
+	        android:summary="@string/summary_widget_compat"
+	        android:defaultValue="false">
+	    </CheckBoxPreference>
+        
+        <ListPreference
+			android:key="@string/key_direct_dial"
+			android:title="@string/list_direct_dial"
+			android:entries="@array/direct_dial_types"
+			android:entryValues="@array/direct_dial_type_vals"
+			android:dialogTitle="@string/list_direct_dial">
+	    </ListPreference>
+    </PreferenceCategory>
+    
+    <PreferenceCategory
+        android:title="@string/category_about">
+        
+        <Preference
+            android:key="@string/key_version"
+            android:layout_width="match_parent"
+            android:icon="@drawable/ic_launcher"
+            android:title="@string/app_name"
+            android:summary="">
+        </Preference>
+        
+    </PreferenceCategory>
+</PreferenceScreen>

@@ -1,0 +1,16 @@
+<resources>
+
+    <dimen name="padding_small">5dp</dimen>
+    <dimen name="padding_medium">8dp</dimen>
+    <dimen name="padding_large">16dp</dimen>
+    <dimen name="notification_width">0dp</dimen><!-- スマホなら画面幅と同じ -->
+    <dimen name="shadow_offset">10dp</dimen>
+    <dimen name="cell_width">80dp</dimen>
+    <dimen name="cell_height">100dp</dimen>
+    <dimen name="cell_height_s">65dp</dimen>
+    <dimen name="notification_height">90dp</dimen>
+    <dimen name="appicon_size">50dp</dimen>
+    <dimen name="appicon_size_s">40dp</dimen>
+    <dimen name="resize_frame_padding">10dp</dimen>
+
+</resources>

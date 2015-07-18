@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="assist_action_types">
+        <item>@string/assist_expand_notification</item>
+        <item>@string/assist_expand_quick_settings</item>
+        <item>@string/assist_do_nothing</item>
+    </string-array>
+    
+    <string-array name="assist_action_type_vals" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>-1</item>
+    </string-array>
+</resources>

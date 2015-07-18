@@ -1,0 +1,15 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutHolder"
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:gravity="center"
+    android:layout_marginTop="-11dp"
+    android:layout_marginBottom="-12dp"
+    android:layout_marginLeft="-59dp"
+    android:layout_marginRight="-59dp"
+    android:scaleX="0.75"
+    android:scaleY="0.75" > 
+    <!-- (marginTop + marginBottom + 65) * scaleY = 65 -->
+</LinearLayout>

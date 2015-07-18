@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Custom Notification</string>
+    <string name="authorities" translatable="false">jp.co.shekeen.WidgetHolder.settings</string>
+    
+    <!-- 以下、有料版・無料版で共通 -->
+    <string name="error_no_space">No more room on the notification</string>
+    <string name="button_add_widget">Widgets</string>
+    <string name="button_add_app">Apps</string>
+    <string name="button_add_shortcut">Shortcuts</string>
+    <string name="text_add_item">Add to Notification</string>
+    <string name="text_priority">Notification Priority</string>
+    <string name="radio_low_prio">No status icon</string>
+    <string name="radio_high_prio">Always show larger</string>
+    <string name="error_not_supported">Sorry, the widget is not supported</string>
+    <string name="error_id_conflist">Sorry, layout ID conflict error occurred</string>
+    <string name="error_multiline_is_not_supported">Multi-line widget is not supported on ICS</string>
+    <string name="error_launch_failed">Selected app is not found</string>
+    <string name="error_load_failed">ERROR</string>
+    <string name="default_title">Loading Failed</string>
+    <string name="title_choose_app">Choose App</string>
+    <string name="title_choose_shortcut">Choose Shortcut</string>
+    <string name="title_setting_menu">Launcher Setting</string>
+    <string name="category_basic">Basic</string>
+    <string name="category_advanced">Advanced</string>
+    <string name="category_about">About</string>
+    <string name="check_transparent">Transparent status icon</string>
+    <string name="check_show_title">Show titles</string>
+    <string name="check_shrink_widget">Shrink this widget</string>
+    <string name="check_hook_intent">Close the notification when tapped</string>
+    <string name="check_use_low_prio">Use low priority</string>
+    <string name="check_widget_compat">Strict widget display</string>
+    <string name="list_status_icon1">Status icon 1</string>
+    <string name="list_status_icon2">Status icon 2</string>
+    <string name="list_status_icon3">Status icon 3</string>
+    <string name="list_assist_action">Assist action</string>
+    <string name="list_direct_dial">Direct dial shortcuts</string>
+    <string name="check_smaller_height">Smaller notification height</string>
+    <string name="check_ics_compat">ICS compatible mode</string>
+    <string name="pick_column_count">Number of Items</string>
+    <string name="button_upgrade">Upgrade to EX!</string>
+    <string name="summary_transparent">Make the status icon transparent, but a blank will remain.</string>
+    <string name="summary_show_title">Show titles under icons, and shows icons smaller.</string>
+    <string name="summary_priority">Hide the status icon. The launcher might be folded, but can be expanded by drag. </string>
+    <string name="summary_no_priority">Hide the status icon. This option is available on Android4.1 and later. </string>
+    <string name="summary_column_count">Change the number of items in a line.</string>
+    <string name="summary_no_column_count">Change the number of items in a line. This option is available on EX.</string>
+    <string name="summary_smaller_height">Three lines are available. Optionally the height of each widgets can be smaller.</string>
+    <string name="summary_ics_compat">Show a notification per line. This is for  devices which have ICS styled notifications.</string>
+    <string name="summary_widget_compat">(EXPERIMENTAL) This option might improve display of some widgets.</string>
+    <string name="summary_assist_action">Assist action is executed when dragging home button upward. The action is available only with software home key.</string>
+    <string name="summary_direct_dial">Some of Samsung devices fail direct calls from the notification. This option provides workaround.</string>
+    <string name="summary_upgrade">If this app is helpful for you, please upgrade to Custom EX version to encourage the development.</string>
+    <string name="title_decrease_column">Confirm</string>
+    <string name="message_decrease_column">Items beyond the number of columns will be removed. \n\nAre you sure you want to continue?</string>
+    <string name="title_decrease_row">Confirm</string>
+    <string name="message_decrease_row">Items at the 3rd line will be removed. \n\nAre you sure you want to continue?</string>
+    <string name="button_yes">YES</string>
+    <string name="button_no">NO</string>
+    <string name="status_icon_default">Default</string>
+    <string name="status_icon_transparent">Transparent</string>
+    <string name="status_icon_battery_level">Battery Level</string>
+    <string name="status_icon_battery_level_bar">Battery Level with Bar</string>
+    <string name="status_icon_battery_temp">Battery Temperature (&#176;C)</string>
+    <string name="status_icon_battery_far_temp">Battery Temperature (&#176;F)</string>
+    <string name="assist_expand_notification">Expand Notification</string>
+    <string name="assist_expand_quick_settings">Expand Quick Settings</string>
+    <string name="assist_do_nothing">Do Nothing</string>
+    <string name="direct_dial_default">Default</string>
+    <string name="direct_dial_manual_start">Manually start call</string>
+    <string name="direct_dial_redirect">Redirect intent</string>
+    
+    <string name="key_priority" translatable="false">priority</string>
+    <string name="key_transparent" translatable="false">transparent</string>
+    <string name="key_show_title" translatable="false">show title</string>
+    <string name="key_use_low_prio" translatable="false">use low prio</string>
+    <string name="key_status_icon1" translatable="false">status icon1</string>
+    <string name="key_status_icon2" translatable="false">status icon2</string>
+    <string name="key_status_icon3" translatable="false">status icon3</string>
+    <string name="key_assist_action" translatable="false">assist action</string>
+    <string name="key_widget_compat" translatable="false">widget compat</string>
+    <string name="key_column_count" translatable="false">column count</string>
+    <string name="key_smaller_height" translatable="false">smaller height</string>
+    <string name="key_ics_compat" translatable="false">ics compat</string>
+    <string name="key_direct_dial" translatable="false">direct dial</string>
+    <string name="key_version" translatable="false">version</string>
+    <string name="key_upgrade" translatable="false">upgrade</string>
+</resources>

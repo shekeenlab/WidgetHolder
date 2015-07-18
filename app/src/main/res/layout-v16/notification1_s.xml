@@ -1,0 +1,93 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutBase"
+    android:layout_width="match_parent"
+    android:layout_height="65dp"
+    android:clickable="true" >
+	
+    <LinearLayout
+        android:id="@+id/layoutBase1"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:orientation="horizontal" >
+        
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/layoutBase2"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:orientation="horizontal" >
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/layoutBase3"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:orientation="horizontal" >
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/layoutBase4"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:orientation="horizontal" >
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/layoutBase5"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:orientation="horizontal" >
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/layoutBase6"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:orientation="horizontal" >
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/layoutBase7"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:orientation="horizontal" >
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/layoutBase8"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:orientation="horizontal" >
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/layoutBase9"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:orientation="horizontal" >
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/layoutBase10"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:orientation="horizontal" >
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/layoutBase11"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:orientation="horizontal" >
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/layoutBase12"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:orientation="horizontal" >
+    </LinearLayout>
+    
+</FrameLayout>

@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 17
-    buildToolsVersion "22.0.1"
+    compileSdkVersion 19
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
         applicationId "jp.co.shekeen.WidgetHolder"
@@ -19,5 +19,5 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:18.0.0'
+    implementation 'com.android.support:support-v4:19.0.0'
 }

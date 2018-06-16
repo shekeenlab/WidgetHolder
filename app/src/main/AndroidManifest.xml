@@ -3,7 +3,6 @@
     android:versionCode="363"
     android:versionName="2.2.1" >
 
-    <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="19" />
     <uses-permission android:name="android.permission.EXPAND_STATUS_BAR"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
@@ -21,7 +20,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name="NotificationService" android:process=":notifservice"></service>
         <activity
             android:name="AppSelectActivity"
             android:theme="@android:style/Theme.Holo.Dialog"

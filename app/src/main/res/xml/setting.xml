@@ -22,22 +22,6 @@
 			android:dialogTitle="@string/list_status_icon1">
 	    </ListPreference>
 	    
-	    <ListPreference
-			android:key="@string/key_status_icon2"
-			android:title="@string/list_status_icon2"
-			android:entries="@array/status_icon_types"
-			android:entryValues="@array/status_icon_type_vals"
-			android:dialogTitle="@string/list_status_icon2">
-	    </ListPreference>
-	    
-	    <ListPreference
-			android:key="@string/key_status_icon3"
-			android:title="@string/list_status_icon3"
-			android:entries="@array/status_icon_types"
-			android:entryValues="@array/status_icon_type_vals"
-			android:dialogTitle="@string/list_status_icon3">
-	    </ListPreference>
-	    
     </PreferenceCategory>
     
     <PreferenceCategory

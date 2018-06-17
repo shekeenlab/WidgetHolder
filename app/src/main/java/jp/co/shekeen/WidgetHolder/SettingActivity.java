@@ -65,21 +65,15 @@ public class SettingActivity extends Activity {
 		private CheckBoxPreference mCheckLowPrio;
 		private CheckBoxPreference mCheckShowTitle;
 		private CheckBoxPreference mCheckSmallerHeight;
-		private CheckBoxPreference mCheckIcsCompat;
 		private ListPreference mListStatusIcon1;
-		private ListPreference mListStatusIcon2;
-		private ListPreference mListStatusIcon3;
 		private ListPreference mListAssistAction;
-		private ListPreference mListDirectDial;
 		private Preference mColumnCount;
 		private Preference mUpgrade;
 		private PackageInfo mPackageInfo;
 		private SparseArray<String> mIconTypes;
 		private SparseArray<String> mAssistTypes;
-		private SparseArray<String> mDirectDialTypes;
 		private AlertDialog mAlertDialog;
 		private String mAssistSummary;
-		private String mDirectDialSummar;
 		private SettingLoader mLoader;
 		
 		/* 設定画面でしか使用しないキー */
@@ -111,8 +105,6 @@ public class SettingActivity extends Activity {
 			mKeyUpgrade = getString(R.string.key_upgrade);
 			
 			mListStatusIcon1 = (ListPreference) findPreference(mLoader.key_status_icon1);
-			mListStatusIcon2 = (ListPreference) findPreference(mLoader.key_status_icon2);
-			mListStatusIcon3 = (ListPreference) findPreference(mLoader.key_status_icon3);
 			String[] statusIconTypes = getResources().getStringArray(R.array.status_icon_types);
 			String[] statusIconVals = getResources().getStringArray(R.array.status_icon_type_vals);
 			mIconTypes = new SparseArray<String>();
@@ -121,12 +113,8 @@ public class SettingActivity extends Activity {
 				mIconTypes.put(index, statusIconTypes[i]);
 			}
 			mListStatusIcon1.setSummary(mListStatusIcon1.getEntry());
-			mListStatusIcon2.setSummary(mListStatusIcon2.getEntry());
-			mListStatusIcon3.setSummary(mListStatusIcon3.getEntry());
 			mListStatusIcon1.setOnPreferenceChangeListener(this);
-			mListStatusIcon2.setOnPreferenceChangeListener(this);
-			mListStatusIcon3.setOnPreferenceChangeListener(this);
-			
+
 			mCheckShowTitle = (CheckBoxPreference) findPreference(mLoader.key_show_title);
 			mCheckShowTitle.setOnPreferenceChangeListener(this);
 			
@@ -138,46 +126,23 @@ public class SettingActivity extends Activity {
 				int index = Integer.valueOf(assistActionVals[i]);
 				mAssistTypes.put(index, assistActionTypes[i]);
 			}
-			
-			/* 直接発信の設定値から説明文を逆引きするハッシュを生成 */
-			String[] directDialTypes = getResources().getStringArray(R.array.direct_dial_types);
-			String[] directDialVals = getResources().getStringArray(R.array.direct_dial_type_vals);
-			mDirectDialTypes = new SparseArray<String>();
-			for(int i = 0; i < directDialTypes.length; i++){
-				int index = Integer.valueOf(directDialVals[i]);
-				mDirectDialTypes.put(index, directDialTypes[i]);
-			}
-			
+
 			if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN){/* 4.1以上ならばメニューを設定 */
 				/* アシストアクションの設定 */
 				mListAssistAction = (ListPreference) findPreference(mLoader.key_assist_action);
 				mAssistSummary = "\n" + getResources().getString(R.string.summary_assist_action);
 				mListAssistAction.setSummary(mListAssistAction.getEntry() + mAssistSummary);
 				mListAssistAction.setOnPreferenceChangeListener(this);
-				
-				/* 直接発信のワークアラウンド設定 */
-				mListDirectDial = (ListPreference) findPreference(mLoader.key_direct_dial);
-				if(mListDirectDial != null){
-					mDirectDialSummar = "\n" + getResources().getString(R.string.summary_direct_dial);
-					mListDirectDial.setSummary(mListDirectDial.getEntry() + mDirectDialSummar);
-					mListDirectDial.setOnPreferenceChangeListener(this);
-				}
 			}
-			
+
 			if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN){/* IF JB */
 				mCheckLowPrio = (CheckBoxPreference) findPreference(mKeyUseLowPrio);
 				mCheckSmallerHeight = (CheckBoxPreference) findPreference(mLoader.key_smaller_height);
-				mCheckIcsCompat = (CheckBoxPreference) findPreference(mLoader.key_ics_compat);
-				
+
 				mCheckLowPrio.setOnPreferenceChangeListener(this);
-				mCheckIcsCompat.setOnPreferenceChangeListener(this);
 				mCheckSmallerHeight.setOnPreferenceChangeListener(this);
-				if(mCheckIcsCompat.isChecked()){
-					mCheckSmallerHeight.setEnabled(false);
-				}
+
 				mListStatusIcon1.setEnabled(!mCheckLowPrio.isChecked());
-				mListStatusIcon2.setEnabled(mCheckIcsCompat.isChecked() && !mCheckLowPrio.isChecked());
-				mListStatusIcon3.setEnabled(mCheckIcsCompat.isChecked() && !mCheckLowPrio.isChecked());
 			}
 			
 			if(mPackageInfo != null){
@@ -207,42 +172,14 @@ public class SettingActivity extends Activity {
 					mPref.edit().putInt(mLoader.key_priority, SettingLoader.PRIORITY_HIGH).commit();
 				}
 				mListStatusIcon1.setEnabled(!(Boolean)newValue);
-				mListStatusIcon2.setEnabled(mCheckIcsCompat.isChecked() && !(Boolean)newValue);
-				mListStatusIcon3.setEnabled(mCheckIcsCompat.isChecked() && !(Boolean)newValue);
 				/* 配信されるキーと値を上書き */
 				key = mLoader.key_priority;
 				newValue = (Boolean)newValue ? SettingLoader.PRIORITY_MIN : SettingLoader.PRIORITY_HIGH;
-			}
-			else if(preference == mCheckIcsCompat){
-				if((Boolean)newValue){
-					mCheckSmallerHeight.setEnabled(false);
-				}
-				else if(!mCheckSmallerHeight.isChecked()){/* 互換モードがOFFになって、かつ縮小表示がOFFならば */
-					mCheckSmallerHeight.setEnabled(true);
-					mCheckSmallerHeight.setChecked(true);/* 3列目削除とか考えるの面倒くさいので縮小表示をONする */
-				}
-				else{
-					mCheckSmallerHeight.setEnabled(true);
-				}
-				mListStatusIcon2.setEnabled((Boolean)newValue && !mCheckLowPrio.isChecked());
-				mListStatusIcon3.setEnabled((Boolean)newValue && !mCheckLowPrio.isChecked());
 			}
 			else if(preference == mListStatusIcon1){
 				String entry = mIconTypes.get(Integer.valueOf((String)newValue));
 				if(entry != null){
 					mListStatusIcon1.setSummary(entry);
-				}
-			}
-			else if(preference == mListStatusIcon2){
-				String entry = mIconTypes.get(Integer.valueOf((String)newValue));
-				if(entry != null){
-					mListStatusIcon2.setSummary(entry);
-				}
-			}
-			else if(preference == mListStatusIcon3){
-				String entry = mIconTypes.get(Integer.valueOf((String)newValue));
-				if(entry != null){
-					mListStatusIcon3.setSummary(entry);
 				}
 			}
 			else if(preference == mListAssistAction){
@@ -258,13 +195,6 @@ public class SettingActivity extends Activity {
 				}
 				else{/* アシストを有効にする */
 					pm.setComponentEnabledSetting(component, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
-				}
-			}
-			else if(preference == mListDirectDial){
-				int value = Integer.valueOf((String)newValue);
-				String entry = mDirectDialTypes.get(value);
-				if(entry != null){
-					mListDirectDial.setSummary(entry + mDirectDialSummar);
 				}
 			}
 			else if(preference == mCheckSmallerHeight){

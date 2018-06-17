@@ -132,12 +132,7 @@ public class NotificationService {
 		builder.setSmallIcon(getStatusIcon(id));
 		builder.setTicker(mContext.getString(R.string.app_name));
 		builder.setContent(remoteViews);
-		if(Config.EX_VER){
-			builder.setWhen(Long.MAX_VALUE - 10 * total - id);
-		}
-		else{
-			builder.setWhen(Long.MAX_VALUE - 10 * total - id - 100);
-		}
+		builder.setWhen(Long.MAX_VALUE - 10 * total - id);
 		
 		int priority = mSettingLoader.getPriority();
 		NotificationUtil.setPriority(builder, priority);

@@ -40,14 +40,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <Button
-                android:id="@+id/buttonAddWidget"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/button_add_widget" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp">
 
             <Button
                 android:id="@+id/buttonAddApp"
@@ -56,25 +50,12 @@
                 android:layout_weight="1"
                 android:text="@string/button_add_app" />
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
             <Button
                 android:id="@+id/buttonAddShortcut"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/button_add_shortcut" />
-
-            <TextView
-                android:id="@+id/textSpacer1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
         </LinearLayout>
 
     </LinearLayout>

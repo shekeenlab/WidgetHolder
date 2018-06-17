@@ -31,7 +31,6 @@ public class MainActivity extends Activity
 	private static final int REQUEST_CODE_ADD_APP = 3;
 	private static final int REQUEST_CODE_ADD_SHORTCUT = 4;
 
-	private Button mButtonAddWidget;
 	private Button mButtonAddApp;
 	private Button mButtonAddShortcut;
 	private NotificationService mNotifService;
@@ -55,7 +54,6 @@ public class MainActivity extends Activity
 		mSettingLoader = new SettingLoader(this);
     	mAppWidgetManager = AppWidgetManager.getInstance(this);
         
-    	mButtonAddWidget = (Button)findViewById(R.id.buttonAddWidget);
     	mButtonAddApp = (Button)findViewById(R.id.buttonAddApp);
     	mButtonAddShortcut = (Button)findViewById(R.id.buttonAddShortcut);
     	mImageTrash = (ImageView)findViewById(R.id.imageTrash);
@@ -73,7 +71,6 @@ public class MainActivity extends Activity
     	mResizeLayer = new ResizeLayer(cellBase, mSettingLoader.getRowCount(), mSettingLoader.getSmaller());
     	mCellLayout.setup(mResizeLayer);
     	
-    	mButtonAddWidget.setOnClickListener(this);
     	mButtonAddApp.setOnClickListener(this);
     	mButtonAddShortcut.setOnClickListener(this);
     	mImageTrash.setOnDragListener(this);
@@ -120,9 +117,7 @@ public class MainActivity extends Activity
 
 	@Override
 	public void onClick(View v) {
-		if(v == mButtonAddWidget){
-		}
-		else if(v == mButtonAddApp){
+		if(v == mButtonAddApp){
 			Intent intent = new Intent(this, AppSelectActivity.class);
 			startActivityForResult(intent, REQUEST_CODE_ADD_APP);
 		}

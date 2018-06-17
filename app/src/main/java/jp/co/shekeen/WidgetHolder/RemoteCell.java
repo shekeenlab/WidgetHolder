@@ -32,25 +32,7 @@ public class RemoteCell {
 	}
 	
 	public void updateView(Context context, RemoteViews remoteViews, boolean icsCompat){/* mCellInfoがWidgetInfoの場合のみ呼ばれる */
-		/* RemoteCellの責務はRemoteViewsをServiceに閉じて管理すること */
-		if(icsCompat){
-			DebugHelper.print("EXPERIMENTAL WIDGET");
-			if(mCellInfo instanceof WidgetInfo && remoteViews != null){
-				WidgetInfo widgetInfo = (WidgetInfo) mCellInfo;
-				if(widgetInfo.optimizeRemoteViews(context, mRemoteViews, remoteViews) == false){
-					mRemoteViews = remoteViews;
-				}
-			}
-		}
-		else{
-			DebugHelper.print("NORMAL WIDGET");
-			/* 動作確認を十分行った後に以下のコードを有効にする */
-//			if(mCellInfo instanceof WidgetInfo && remoteViews != null){
-//				WidgetInfo widgetInfo = (WidgetInfo) mCellInfo;
-//				widgetInfo.replaceBitmap(context, mRemoteViews);
-//			}
-			mRemoteViews = remoteViews;
-		}
+		mRemoteViews = remoteViews;
 	}
 	
 	public RemoteViews createFormatedView(){

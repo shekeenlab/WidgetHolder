@@ -1,17 +1,11 @@
 package jp.co.shekeen.WidgetHolder;
 
-import java.util.ArrayList;
-
-import jp.co.shekeen.WidgetHolder.CellInfo.CellPosition;
 import jp.co.shekeen.WidgetHolder.CellLayout.OnCellLayoutChangedListener;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProviderInfo;
-import android.content.ComponentName;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.view.DragEvent;
@@ -36,25 +30,16 @@ public class MainActivity extends Activity
 	private static final int REQUEST_CODE_CONFIGURE = 2;
 	private static final int REQUEST_CODE_ADD_APP = 3;
 	private static final int REQUEST_CODE_ADD_SHORTCUT = 4;
-	private static final int END_FLAG_PICK = 0x01;
-	private static final int END_FLAG_UPDATEWIDGET = 0x02;
-	private static final int END_FLAG_CONFIGURE = 0x04;
-	private static final int END_STAT_WIDGET_AVAILABLE = END_FLAG_PICK | END_FLAG_UPDATEWIDGET | END_FLAG_CONFIGURE;
-	
+
 	private Button mButtonAddWidget;
 	private Button mButtonAddApp;
 	private Button mButtonAddShortcut;
 	private NotificationService mNotifService;
 	private AppWidgetManager mAppWidgetManager;
 	private CellLayout mCellLayout;
-	private int mTargetId;
-	private int mEndFlag;
 	private ImageView mImageTrash;
-	private CheckBox mCheckHookIntent;
 	private CheckBox mCheckShrink;
-	private RemoteViews mTestTarget;
 	private ResizeLayer mResizeLayer;
-	private WidgetInfo mTargetWidget;
 	private SettingLoader mSettingLoader;
 	
     @Override
@@ -74,7 +59,6 @@ public class MainActivity extends Activity
     	mButtonAddApp = (Button)findViewById(R.id.buttonAddApp);
     	mButtonAddShortcut = (Button)findViewById(R.id.buttonAddShortcut);
     	mImageTrash = (ImageView)findViewById(R.id.imageTrash);
-    	mCheckHookIntent = (CheckBox)findViewById(R.id.checkHookIntent);
     	mCheckShrink = (CheckBox)findViewById(R.id.checkShrink);
     	
     	FrameLayout cellBase = (FrameLayout)findViewById(R.id.layoutCellBase);
@@ -107,7 +91,6 @@ public class MainActivity extends Activity
 		if(mAppWidgetManager != null){
 			mSettingLoader = new SettingLoader(this);/* 設定を再読み込みする */
 			regenerateCellLayout();
-			mTargetWidget = null;
 			onWidgetSelected(null);
 		}
 	}
@@ -151,22 +134,7 @@ public class MainActivity extends Activity
 
     @Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-    	if(buttonView == mCheckHookIntent){
-			if(mTargetWidget != null){
-				mTargetWidget.setHookIntent(isChecked);
-				mNotifService.updateCellInfos(new CellInfo[]{ mTargetWidget });
-			}
-		}
-		else if(buttonView == mCheckShrink){
-			if(mTargetWidget != null){
-				mTargetWidget.setShrink(isChecked);
-				mNotifService.updateCellInfos(new CellInfo[]{ mTargetWidget });
-				/* WidgetのViewを作り直す */
-				mCellLayout.remove(mTargetWidget.getAppWidgetId());
-				CellPosition pos = mTargetWidget.getPosition();
-				mCellLayout.putAt(pos, mTargetWidget);
-			}
-		}
+
 	}
     
 	@Override
@@ -269,28 +237,7 @@ public class MainActivity extends Activity
 	}
 
 	public void onWidgetSelected(CellInfo cellInfo){
-		mCheckHookIntent.setOnCheckedChangeListener(null);
-		mCheckShrink.setOnCheckedChangeListener(null);
-		mTargetWidget = null;
 
-		if(cellInfo instanceof WidgetInfo){
-			mTargetWidget = (WidgetInfo)cellInfo;
-			mCheckHookIntent.setVisibility(View.VISIBLE);
-			mCheckHookIntent.setChecked(mTargetWidget.getHookIntent());
-			mCheckHookIntent.setOnCheckedChangeListener(this);
-			if(mSettingLoader.getSmaller()){
-				mCheckShrink.setVisibility(View.VISIBLE);
-				mCheckShrink.setChecked(mTargetWidget.getShrink());
-				mCheckShrink.setOnCheckedChangeListener(this);
-			}
-			else{
-				mCheckShrink.setVisibility(View.INVISIBLE);
-			}
-		}
-		else{
-			mCheckHookIntent.setVisibility(View.INVISIBLE);
-			mCheckShrink.setVisibility(View.INVISIBLE);
-		}
 	}
 	
 	@Override

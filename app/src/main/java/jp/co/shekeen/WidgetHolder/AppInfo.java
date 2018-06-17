@@ -130,43 +130,7 @@ public class AppInfo extends CellInfo {
 	
 	@Override
 	public RemoteViews createRemoteViews(Context context, RemoteViews widgetView) {
-		if(Build.VERSION.SDK_INT > Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1){/* IF JELLY BEAN AND HIGHER */
-			return createRemoteForJB(context);
-		}
-		else{
-			return createRemoteForICS(context);
-		}
-	}
-
-	private RemoteViews createRemoteForICS(Context context){
-		RemoteViews launcher;
-		if(!mShowTitle){
-			if(mSmaller){
-				launcher = new RemoteViews(context.getPackageName(), R.layout.launcher_no_title_s);
-			}
-			else{
-				launcher = new RemoteViews(context.getPackageName(), R.layout.launcher_no_title);
-			}
-		}
-		else{
-			if(mSmaller){
-				launcher = new RemoteViews(context.getPackageName(), R.layout.launcher_s);
-			}
-			else{
-				launcher = new RemoteViews(context.getPackageName(), R.layout.launcher);
-			}
-			launcher.setTextViewText(R.id.textAppName, mAppName);
-		}
-		
-		if(mIntent != null){
-			Intent intent = new Intent(context, NotificationService.class);
-			intent.setAction(NotificationService.ACTION_LAUNCH_APP);
-			intent.putExtra(EXTRA_INTENT, mIntent);
-			PendingIntent pendingIntent = PendingIntent.getService(context, getIntentCode(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
-			launcher.setOnClickPendingIntent(R.id.imageBlocker, pendingIntent);
-		}
-		launcher.setImageViewUri(R.id.imageAppIcon, mUri);
-		return launcher;
+		return createRemoteForJB(context);
 	}
 	
 	private RemoteViews createRemoteForJB(Context context){
@@ -207,13 +171,6 @@ public class AppInfo extends CellInfo {
 			mIconToSave.recycle();
 			mIconToSave = null;
 		}
-	}
-
-	public static void launchApp(Context context, Intent intent){
-		MyStatusBarManager statusbar = MyStatusBarManager.getInstance(context);
-		statusbar.collapse();
-		Intent launcher = intent.getParcelableExtra(EXTRA_INTENT);
-		context.startActivity(launcher);
 	}
 	
 	@Override

@@ -167,11 +167,6 @@ public class CellView extends FrameLayout implements OnDragListener, OnLongClick
 
 	@Override
 	public void onClick(View v) {
-		if(mCellInfo instanceof WidgetInfo){
-			mParent.resizeStart(this);
-		}
-		else{
-			mParent.resizeStart(null);
-		}
+		mParent.resizeStart(null);
 	}
 }

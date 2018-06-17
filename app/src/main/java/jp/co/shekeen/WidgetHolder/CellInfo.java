@@ -241,9 +241,6 @@ public class CellInfo implements Parcelable {
 		CellInfo info = null;
 		
 		switch(cellType){
-		case SettingColumns.CELL_TYPE_WIDGET:
-			info = WidgetInfo.createFromCursor(context, cursor);
-			break;
 		case SettingColumns.CELL_TYPE_APPLICATION:
 			info = AppInfo.createFromCursor(context, cursor);
 			break;
@@ -362,9 +359,6 @@ public class CellInfo implements Parcelable {
 			CellInfo info = null;
 			
 			switch(cellType){
-			case SettingColumns.CELL_TYPE_WIDGET:
-				info = WidgetInfo.createFromParcel(source, tmp.mAppWidgetId);
-				break;
 			case SettingColumns.CELL_TYPE_APPLICATION:
 				info = AppInfo.createFromParcel(source);
 				break;

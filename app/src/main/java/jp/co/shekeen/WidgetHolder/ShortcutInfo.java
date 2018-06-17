@@ -183,50 +183,7 @@ public class ShortcutInfo extends CellInfo {
 	
 	@Override
 	public RemoteViews createRemoteViews(Context context, RemoteViews widgetView) {
-		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN){/* IF JELLY BEAN AND HIGHER */
-			if(Intent.ACTION_CALL.equals(mIntent.getAction()) && mDirectDial == SettingLoader.DIRECT_DIAL_REDIRECT_INTENT){
-				/* ICS同等の動作をさせることでサービスを経由する。 */
-				return createRemoteForICS(context);
-			}
-			return createRemoteForJB(context);
-		}
-		else{
-			return createRemoteForICS(context);
-		}
-	}
-
-	private RemoteViews createRemoteForICS(Context context){
-		RemoteViews launcher;
-		if(!mShowTitle){
-			if(mSmaller){
-				launcher = new RemoteViews(context.getPackageName(), R.layout.launcher_no_title_s);
-			}
-			else{
-				launcher = new RemoteViews(context.getPackageName(), R.layout.launcher_no_title);
-			}
-		}
-		else{
-			if(mSmaller){
-				launcher = new RemoteViews(context.getPackageName(), R.layout.launcher_s);
-			}
-			else{
-				launcher = new RemoteViews(context.getPackageName(), R.layout.launcher);
-			}
-			launcher.setTextViewText(R.id.textAppName, mTitle);
-		}
-		Intent intent = new Intent(context, NotificationService.class);
-		intent.setAction(NotificationService.ACTION_LAUNCH_SHORTCUT);
-		intent.putExtra(EXTRA_INTENT, mIntent);
-		PendingIntent pendingIntent = PendingIntent.getService(context, getIntentCode(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
-		launcher.setOnClickPendingIntent(R.id.imageBlocker, pendingIntent);
-		if(mIconType == SettingColumns.ICON_TYPE_BITMAP){
-			/* 本当はmIconUriに生成時にmUriを代入しておきたいが、タイミングがないので仕方なく分岐 */
-			launcher.setImageViewUri(R.id.imageAppIcon, mUri);
-		}
-		else{
-			launcher.setImageViewUri(R.id.imageAppIcon, mIconUri);
-		}
-		return launcher;
+		return createRemoteForJB(context);
 	}
 	
 	private RemoteViews createRemoteForJB(Context context){
@@ -290,26 +247,6 @@ public class ShortcutInfo extends CellInfo {
 			values.put(SettingColumns.KEY_ICON_PACKAGE, mPackageName);
 			values.put(SettingColumns.KEY_ICON_RESOURCE, mIconName);
 		}
-	}
-    
-	public static void launchShortcut(Context context, Intent intent){
-		MyStatusBarManager statusbar = MyStatusBarManager.getInstance(context);
-		statusbar.collapse();
-		
-		Intent launcher = intent.getParcelableExtra(EXTRA_INTENT);
-		launcher.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		
-		/* JBでここのコードに到達したということは、ACTION_CALLのワークアラウンドのため */
-		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN){/* IF JELLY BEAN AND HIGHER */
-			Intent callIntent = new Intent(context, CallPhoneActivity.class);
-			callIntent.setAction(NotificationService.ACTION_LAUNCH_SHORTCUT);
-			callIntent.putExtra(EXTRA_INTENT, launcher);
-			callIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);/* 別プロセスにActivityを生成する */
-			context.startActivity(callIntent);
-			return;
-		}
-		
-		context.startActivity(launcher);
 	}
 	
 	@Override

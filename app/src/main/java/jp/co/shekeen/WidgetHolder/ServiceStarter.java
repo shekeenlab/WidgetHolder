@@ -11,8 +11,8 @@ public class ServiceStarter extends BroadcastReceiver {
 		String action = intent.getAction();
 
 		if(Intent.ACTION_BOOT_COMPLETED.equals(action)){
-			Intent starter = new Intent(context, NotificationService.class);
-			context.startService(starter);
+			// コンストラクタで通知を表示してくれる
+			new NotificationService(context);
 		}
 	}
 }

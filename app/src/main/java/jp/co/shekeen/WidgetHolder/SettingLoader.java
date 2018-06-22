@@ -221,7 +221,7 @@ public class SettingLoader {
 	
 	/* 設定画面用 */
 	public void sendNewValue(String key, Object newValue){
-		Intent intent = new Intent(mContext, NotificationService.class);
+		Intent intent = new Intent(mContext, NotificationBuilder.class);
 		intent.setAction(ACTION_SETTING_CHANGED);
 		intent.putExtra(EXTRA_CHANGED_KEY, key);
 		

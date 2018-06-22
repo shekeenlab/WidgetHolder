@@ -1,19 +1,17 @@
 package jp.co.shekeen.WidgetHolder;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Notification;
-import android.content.BroadcastReceiver;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.os.BatteryManager;
 import android.widget.FrameLayout;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
-public class NotificationService {
+import java.util.ArrayList;
+import java.util.List;
+
+public class NotificationBuilder {
 	
 	private GridNotification mGridNotif;
 	private List<Integer> mNotifIdList;
@@ -21,7 +19,7 @@ public class NotificationService {
 	private SettingLoader mSettingLoader;
 	private Context mContext;
 
-	public NotificationService(Context context) {
+	public NotificationBuilder(Context context) {
 
 		DebugHelper.print("SERVICE CREATE");
 		mContext = context;
@@ -139,12 +137,12 @@ public class NotificationService {
 		Notification notification = NotificationUtil.build(builder);
 		NotificationUtil.setBigContentView(notification, notification.contentView);
 
-		android.app.NotificationManager notificationManager = (android.app.NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+		NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
 		notificationManager.notify(id, notification);
 	}
 	
 	private void hideNotification(int id){
-		android.app.NotificationManager notificationManager = (android.app.NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+		NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
 		notificationManager.cancel(id);
 	}
 	

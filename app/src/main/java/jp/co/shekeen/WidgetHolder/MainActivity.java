@@ -33,7 +33,7 @@ public class MainActivity extends Activity
 
 	private Button mButtonAddApp;
 	private Button mButtonAddShortcut;
-	private NotificationService mNotifService;
+	private NotificationBuilder mNotifBuilder;
 	private AppWidgetManager mAppWidgetManager;
 	private CellLayout mCellLayout;
 	private ImageView mImageTrash;
@@ -49,7 +49,7 @@ public class MainActivity extends Activity
         /* プロセスが異なるので、staticなinitializeはアクティビティとサービスともに同じものを呼ぶように注意 */
         Config.initialize(this);
         SettingColumns.initialize(this);
-		mNotifService = new NotificationService(this);
+		mNotifBuilder = new NotificationBuilder(this);
 		
 		mSettingLoader = new SettingLoader(this);
     	mAppWidgetManager = AppWidgetManager.getInstance(this);
@@ -63,7 +63,7 @@ public class MainActivity extends Activity
     	mCellLayout = new CellLayout(cellBase, mSettingLoader.getColumnCount(), mSettingLoader.getRowCount(), mSettingLoader.getSmaller());
     	mCellLayout.setOnClickListener(this);
     	mCellLayout.setOnUserLayoutListener(this);
-    	CellInfo[] cellInfos = mNotifService.getCellInfos();
+    	CellInfo[] cellInfos = mNotifBuilder.getCellInfos();
     	for(CellInfo info : cellInfos){
     		info.applySetting(mSettingLoader);/* 設定を適用する */
     		mCellLayout.putAt(info.getPosition(), info);
@@ -164,7 +164,7 @@ public class MainActivity extends Activity
 			
 			boolean result = mCellLayout.append(appInfo);
 			if(result){
-				mNotifService.addCellInfo(appInfo);
+				mNotifBuilder.addCellInfo(appInfo);
 			}
 			else{
 				/* DBから削除する */
@@ -184,7 +184,7 @@ public class MainActivity extends Activity
 			
 			boolean result = mCellLayout.append(shortcutInfo);
 			if(result){
-				mNotifService.addCellInfo(shortcutInfo);
+				mNotifBuilder.addCellInfo(shortcutInfo);
 			}
 			else{
 				/* DBから削除する */
@@ -228,7 +228,7 @@ public class MainActivity extends Activity
 
 	@Override
 	public void onCellLayoutChanged(CellInfo[] cellInfos) {
-		mNotifService.updateCellInfos(cellInfos);
+		mNotifBuilder.updateCellInfos(cellInfos);
 	}
 
 	public void onWidgetSelected(CellInfo cellInfo){
@@ -284,7 +284,7 @@ public class MainActivity extends Activity
 		Drawable drawable = getResources().getDrawable(R.drawable.trashcan_normal);
 		mImageTrash.setImageDrawable(drawable);
 		mCellLayout.dragDrop();
-		mNotifService.deleteCellInfo(cellView.getCellInfo());
+		mNotifBuilder.deleteCellInfo(cellView.getCellInfo());
 	}
 	
 	private void regenerateCellLayout(){
@@ -293,7 +293,7 @@ public class MainActivity extends Activity
     	mCellLayout = new CellLayout(cellBase, mSettingLoader.getColumnCount(), mSettingLoader.getRowCount(), mSettingLoader.getSmaller());
     	mCellLayout.setOnClickListener(this);
     	mCellLayout.setOnUserLayoutListener(this);
-    	CellInfo[] cellInfos = mNotifService.getCellInfos();
+    	CellInfo[] cellInfos = mNotifBuilder.getCellInfos();
     	for(CellInfo info : cellInfos){
     		info.applySetting(mSettingLoader);/* 設定を適用する */
     		mCellLayout.putAt(info.getPosition(), info);

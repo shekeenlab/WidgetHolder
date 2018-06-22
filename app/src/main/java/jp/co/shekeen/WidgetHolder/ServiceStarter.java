@@ -12,7 +12,7 @@ public class ServiceStarter extends BroadcastReceiver {
 
 		if(Intent.ACTION_BOOT_COMPLETED.equals(action)){
 			// コンストラクタで通知を表示してくれる
-			new NotificationService(context);
+			new NotificationBuilder(context);
 		}
 	}
 }

@@ -209,10 +209,8 @@ public class ShortcutInfo extends CellInfo {
 		argIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);/* FLAG_ACTIVITY_RESET_TASK_IF_NEEDEDをセットするとEverNoteのショートカットが起動できなくなる */
 		
 		/* パーミッション不要のダイアル動作に置き換える。 */
-		if(mDirectDial == SettingLoader.DIRECT_DIAL_MANUAL_START){
-			if(Intent.ACTION_CALL.equals(argIntent.getAction())){
-				argIntent.setAction(Intent.ACTION_DIAL);
-			}
+		if(Intent.ACTION_CALL.equals(argIntent.getAction())){
+			argIntent.setAction(Intent.ACTION_DIAL);
 		}
 		
 		PendingIntent pendingIntent = PendingIntent.getActivity(context, getIntentCode(), argIntent, PendingIntent.FLAG_UPDATE_CURRENT);

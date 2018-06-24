@@ -53,44 +53,6 @@ public class NotificationBuilder {
 		mGridNotif.deleteCellInfo(cellInfo);
 		updateNotification(true);
 	}
-
-	public void onSettingChanged(Intent intent) {
-		mSettingLoader.updateValue(intent);
-		String key = intent.getStringExtra(SettingLoader.EXTRA_CHANGED_KEY);
-		DebugHelper.print("CALLBACK", key);
-		
-		if(mSettingLoader.key_column_count.equals(key)){
-			/* GridNotificationを再生成することではみ出たアイテムは削除される */
-			mGridNotif = new GridNotification(mContext, mSettingLoader);
-		}
-		else if(mSettingLoader.key_smaller_height.equals(key)){
-			mGridNotif = new GridNotification(mContext, mSettingLoader);
-		}
-		else if(mSettingLoader.key_ics_compat.equals(key)){
-			/* IcsCompatが変更されたら必ずGridNotificationを再生成する必要があるわけではないが（SmallerHeightがfalseのときのみ）、 */
-			/* あれこれ考えてもエンバグしそうなので、とりあえず再生成する */
-			mGridNotif = new GridNotification(mContext, mSettingLoader);
-		}
-		else if(mSettingLoader.key_show_title.equals(key)){
-			mGridNotif.updateAllView(mSettingLoader);
-		}
-		/* 通知優先度が変更されたときのみ、通知を再表示する */
-		applySetting(mSettingLoader.key_priority.equals(key));
-	}
-	
-	private void applySetting(boolean hide){
-		mGridNotif.updateAllView(mSettingLoader);
-		if(hide){
-			for(Integer id : mNotifIdList){
-				hideNotification(id);
-			}
-		}
-		updateNotification(true);
-	}
-
-	private void updateNotification(){
-		updateNotification(true);
-	}
 	
 	private void updateNotification(boolean regenerate){
 		if(regenerate || mRemoteNotifs == null){

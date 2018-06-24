@@ -209,8 +209,6 @@ public class SettingActivity extends Activity {
 					return false;
 				}
 			}
-			/* 設定の変化を別プロセスのサービスに通知 */
-			mLoader.sendNewValue(key, newValue);
 			return true;
 		}
 
@@ -231,8 +229,6 @@ public class SettingActivity extends Activity {
 				mCheckSmallerHeight.setOnPreferenceChangeListener(null);/* 余計なコールバックを呼ばない */
 				mCheckSmallerHeight.setChecked(false);
 				mCheckSmallerHeight.setOnPreferenceChangeListener(this);
-				/* 設定の変化を別プロセスのサービスに通知 */
-				mLoader.sendNewValue(mLoader.key_smaller_height, false);
 			}
 		}
 		

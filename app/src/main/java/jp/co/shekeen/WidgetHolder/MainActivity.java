@@ -34,10 +34,8 @@ public class MainActivity extends Activity
 	private Button mButtonAddApp;
 	private Button mButtonAddShortcut;
 	private NotificationBuilder mNotifBuilder;
-	private AppWidgetManager mAppWidgetManager;
 	private CellLayout mCellLayout;
 	private ImageView mImageTrash;
-	private CheckBox mCheckShrink;
 	private ResizeLayer mResizeLayer;
 	private SettingLoader mSettingLoader;
 	
@@ -52,13 +50,11 @@ public class MainActivity extends Activity
 		mNotifBuilder = new NotificationBuilder(this);
 		
 		mSettingLoader = new SettingLoader(this);
-    	mAppWidgetManager = AppWidgetManager.getInstance(this);
-        
+
     	mButtonAddApp = (Button)findViewById(R.id.buttonAddApp);
     	mButtonAddShortcut = (Button)findViewById(R.id.buttonAddShortcut);
     	mImageTrash = (ImageView)findViewById(R.id.imageTrash);
-    	mCheckShrink = (CheckBox)findViewById(R.id.checkShrink);
-    	
+
     	FrameLayout cellBase = (FrameLayout)findViewById(R.id.layoutCellBase);
     	mCellLayout = new CellLayout(cellBase, mSettingLoader.getColumnCount(), mSettingLoader.getRowCount(), mSettingLoader.getSmaller());
     	mCellLayout.setOnClickListener(this);
@@ -74,22 +70,15 @@ public class MainActivity extends Activity
     	mButtonAddApp.setOnClickListener(this);
     	mButtonAddShortcut.setOnClickListener(this);
     	mImageTrash.setOnDragListener(this);
-    	
-    	if(!mSettingLoader.getSmaller()){
-    		mCheckShrink.setVisibility(View.GONE);
-    	}
     }
     
 	@Override
 	protected void onResume() {
 		super.onResume();
-		
-		/* サービスと接続済みかどうかをmAppWidgetManagerのインスタンスの有無で判断する */
-		if(mAppWidgetManager != null){
-			mSettingLoader = new SettingLoader(this);/* 設定を再読み込みする */
-			regenerateCellLayout();
-			onWidgetSelected(null);
-		}
+
+		mSettingLoader = new SettingLoader(this);/* 設定を再読み込みする */
+		mNotifBuilder = new NotificationBuilder(this);
+		regenerateCellLayout();
 	}
 
 	@Override
@@ -234,7 +223,7 @@ public class MainActivity extends Activity
 	public void onWidgetSelected(CellInfo cellInfo){
 
 	}
-	
+
 	@Override
 	public boolean onDrag(View v, DragEvent event) {
 		Object localState = event.getLocalState();

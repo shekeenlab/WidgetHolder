@@ -62,8 +62,6 @@ public class ColumnCountPreference extends DialogPreference implements OnClickLi
 			}
 			else{
 				persistInt(mCurrentValue);
-				/* 設定の変化を別プロセスのサービスに通知 */
-				mSettingLoader.sendNewValue(mSettingLoader.key_column_count, mCurrentValue);
 			}
 		}
 	}
@@ -74,8 +72,6 @@ public class ColumnCountPreference extends DialogPreference implements OnClickLi
 		
 		if(mAlertDialog == dialog && which == DialogInterface.BUTTON_POSITIVE){
 			persistInt(mCurrentValue);
-			/* 設定の変化を別プロセスのサービスに通知 */
-			mSettingLoader.sendNewValue(mSettingLoader.key_column_count, mCurrentValue);
 		}
 	}
 }

@@ -1,9 +1,10 @@
 package jp.co.shekeen.WidgetHolder;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
-import android.content.Intent;
+import android.os.Build;
 import android.widget.FrameLayout;
 import android.widget.RemoteViews;
 import android.widget.Toast;
@@ -12,7 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NotificationBuilder {
-	
+
+	private static final String CHANNEL_ID = "WidgetHolder";
 	private GridNotification mGridNotif;
 	private List<Integer> mNotifIdList;
 	private RemoteViews[] mRemoteNotifs;
@@ -27,11 +29,25 @@ public class NotificationBuilder {
 		/* MainActivityとはプロセスが異なるので静的クラスの初期化は注意 */
 		Config.initialize(mContext);
         SettingColumns.initialize(mContext);
+        InitChannel();
 		
         mSettingLoader = new SettingLoader(mContext);
 		mGridNotif = new GridNotification(mContext, mSettingLoader);
 		mNotifIdList = new ArrayList<Integer>();
 		updateNotification(true);
+	}
+
+	private void InitChannel(){
+		/* Android8向けに通知チャネルを設定する */
+		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+			NotificationManager manager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+			NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "Show launcher", NotificationManager.IMPORTANCE_LOW);
+			channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+			channel.enableLights(false);
+			channel.enableVibration(false);
+			channel.setShowBadge(false);
+			manager.createNotificationChannel(channel);
+		}
 	}
 	
 	public CellInfo[] getCellInfos(){
@@ -93,6 +109,9 @@ public class NotificationBuilder {
 		builder.setTicker(mContext.getString(R.string.app_name));
 		builder.setContent(remoteViews);
 		builder.setWhen(Long.MAX_VALUE - 10 * total - id);
+		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+			builder.setChannelId(CHANNEL_ID);
+		}
 		
 		int priority = mSettingLoader.getPriority();
 		NotificationUtil.setPriority(builder, priority);

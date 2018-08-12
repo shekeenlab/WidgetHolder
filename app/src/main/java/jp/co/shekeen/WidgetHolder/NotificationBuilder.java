@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.media.AudioAttributes;
 import android.os.Build;
 import android.widget.FrameLayout;
 import android.widget.RemoteViews;
@@ -41,11 +42,19 @@ public class NotificationBuilder {
 		/* Android8向けに通知チャネルを設定する */
 		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
 			NotificationManager manager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-			NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "Show launcher", NotificationManager.IMPORTANCE_LOW);
-			channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+			NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "Show launcher", NotificationManager.IMPORTANCE_HIGH);
+			channel.setLockscreenVisibility(Notification.VISIBILITY_SECRET);
 			channel.enableLights(false);
 			channel.enableVibration(false);
 			channel.setShowBadge(false);
+			channel.setBypassDnd(false);
+			// 音を鳴らさないための設定
+			AudioAttributes.Builder builder = new AudioAttributes.Builder();
+			builder.setUsage(AudioAttributes.USAGE_NOTIFICATION);
+			builder.setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION);
+			AudioAttributes audioattr = builder.build();
+			channel.setSound(null, audioattr);
+
 			manager.createNotificationChannel(channel);
 		}
 	}
